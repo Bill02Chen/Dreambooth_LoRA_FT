@@ -11,6 +11,7 @@ The unique identifier token associated with this subject is “a photo of hbr ma
   <figcaption>Fig. 1 Dataset example</figcaption>
 </figure>
 
+
 2. Model and Training Setup
 
 The model for training is Stable Diffusion v1.5.
@@ -48,6 +49,7 @@ Using LPIPS to do evaluation with a certain prompt “a photo of hbr mari_satsuk
   <img src="images/diversity.png" alt="Fig. 2 Diversity example">
   <figcaption>Fig. 2 Diversity example</figcaption>
 </figure>
+
 
   4.4 Prior Preservation
 
