@@ -1,7 +1,7 @@
 # Dreambooth_LoRA_FT
 LoRA FT on diffusion V1.5
 
-1. Subject and Dataset
+## 1. Subject and Dataset
 
 The object is a game character. The dataset includes 3 images of the distinct object, covering three different clothing styles while preserving facial features and artistic styles.
 The unique identifier token associated with this subject is “a photo of hbr mari_satsuki”.
@@ -10,7 +10,7 @@ The unique identifier token associated with this subject is “a photo of hbr ma
   <figcaption>Fig. 1 Dataset example</figcaption>
 </figure>
 
-2. Model and Training Setup
+## 2. Model and Training Setup
 
 The model for training is Stable Diffusion v1.5.
 Using Hugging Face diffusers DreamBooth scripts, the training is LoRA-based fine-tuning. To further enhance fine-tuning performance in facial, the text encoder is trained. Other main training configurations are listed:
@@ -18,7 +18,7 @@ Using Hugging Face diffusers DreamBooth scripts, the training is LoRA-based fine
 - learning rate: 5e-5
 - max train steps: 500
   
-3. Representative Results
+## 3. Representative Results
 
 By placing the object into different new contexts or styles, such as different environments, modified attributes, added accessories, and artistic styles, the fine-tuned model outputs some representative results.
     
@@ -28,7 +28,7 @@ By placing the object into different new contexts or styles, such as different e
   <img src="images/o2.png" >
   3.3 Artistic Styles
   <img src="images/o3.png" >
-4. Observations and Analysis
+## 4. Observations and Analysis
    
   4.1 Fidelity
 
