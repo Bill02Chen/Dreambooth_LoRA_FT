@@ -5,7 +5,7 @@ LoRA FT on diffusion V1.5
 
 The object is a game character. The dataset includes 3 images of the distinct object, covering three different clothing styles while preserving facial features and artistic styles.
 The unique identifier token associated with this subject is “a photo of hbr mari_satsuki”.
-<img src="images/dataset.png" alt="Fig. 1 Dataset example" width="300" height="200">
+<img src="images/dataset.png" alt="Fig. 1 Dataset example">
 
 2. Model and Training Setup
 
@@ -22,9 +22,9 @@ By placing the object into different new contexts or styles, such as different e
   3.1 Different Environments
     <img src="images/o1.png" >
   3.2 Modified Attributes or Added Accessories
-
+  <img src="images/o2.png" >
   3.3 Artistic Styles
-
+  <img src="images/o3.png" >
 4. Observations and Analysis
    
   4.1 Fidelity
@@ -39,11 +39,11 @@ Since the subject is a character, and the output results show some inconsistency
   4.3 Diversity
 
 Using LPIPS to do evaluation with a certain prompt “a photo of hbr mari_satsuki wearing a tiny wizard hat, holding a wooden staff, magical forest background”, the average LPIPS among 4 generated images is 0.6747, which shows a good performance in diversity based on the given prompt.
+<img src="images/diversity.png" alt="Fig. 2 Diversity example">
 
-Fig. 2 Diversity example
 
   4.4 Prior Preservation
 
 The observation shows that the model can generate images with different environments using the class prompt only. However, the clothing of the character tends to be the same.
+<img src="images/subject.png" alt="Fig. 3 Class prompt only example">
 
-Fig. 3 Class prompt only example
