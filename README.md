@@ -23,7 +23,8 @@ Using Hugging Face diffusers DreamBooth scripts, the training is LoRA-based fine
 By placing the object into different new contexts or styles, such as different environments, modified attributes, added accessories, and artistic styles, the fine-tuned model outputs some representative results.
     
  ### 3.1 Different Environments
-    <img src="images/o1.png" >
+ <img src="images/o1.png" >
+ 
   ### 3.2 Modified Attributes or Added Accessories
   <img src="images/o2.png" >
   
