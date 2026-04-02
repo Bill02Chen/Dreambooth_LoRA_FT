@@ -5,7 +5,6 @@ LoRA FT on diffusion V1.5
 
 The object is a game character. The dataset includes 3 images of the distinct object, covering three different clothing styles while preserving facial features and artistic styles.
 The unique identifier token associated with this subject is “a photo of hbr mari_satsuki”.
-
 <figure>
   <img src="images/dataset.png" alt="Fig. 1 Dataset example">
   <figcaption>Fig. 1 Dataset example</figcaption>
