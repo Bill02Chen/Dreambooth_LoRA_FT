@@ -22,24 +22,26 @@ Using Hugging Face diffusers DreamBooth scripts, the training is LoRA-based fine
 
 By placing the object into different new contexts or styles, such as different environments, modified attributes, added accessories, and artistic styles, the fine-tuned model outputs some representative results.
     
-  3.1 Different Environments
+ ### 3.1 Different Environments
     <img src="images/o1.png" >
-  3.2 Modified Attributes or Added Accessories
+  ### 3.2 Modified Attributes or Added Accessories
   <img src="images/o2.png" >
-  3.3 Artistic Styles
-  <img src="images/o3.png" >
+  
+### 3.3 Artistic Styles
+  <img src="images/o3.png" > 
+  
 ## 4. Observations and Analysis
    
-  4.1 Fidelity
+ ### 4.1 Fidelity
 
 The overall subject fidelity is acceptable, however, the fine-tuned model does not perfectly reproduce the face.
 The prompt fidelity varies in different contexts. For most cases, the environment and style can be well generated. But in some cases, for instance, the accessory object can not be generated correctly to fit with the subject together.
 
-  4.2 Fitting
+ ### 4.2 Fitting
 
 Since the subject is a character, and the output results show some inconsistency in the human face, the fine-tuned model's performance is underfitting in human face generation.
 
-  4.3 Diversity
+ ### 4.3 Diversity
 
 Using LPIPS to do evaluation with a certain prompt “a photo of hbr mari_satsuki wearing a tiny wizard hat, holding a wooden staff, magical forest background”, the average LPIPS among 4 generated images is 0.6747, which shows a good performance in diversity based on the given prompt.
 
@@ -49,7 +51,7 @@ Using LPIPS to do evaluation with a certain prompt “a photo of hbr mari_satsuk
 </figure>
 
 
-  4.4 Prior Preservation
+  ### 4.4 Prior Preservation
 
 The observation shows that the model can generate images with different environments using the class prompt only. However, the clothing of the character tends to be the same.
 
