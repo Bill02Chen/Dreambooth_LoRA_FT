@@ -5,7 +5,7 @@ LoRA FT on diffusion V1.5
 
 The object is a game character. The dataset includes 3 images of the distinct object, covering three different clothing styles while preserving facial features and artistic styles.
 The unique identifier token associated with this subject is “a photo of hbr mari_satsuki”.
-<img src="image.jpg" alt="Fig. 1 Dataset example" width="300" height="200">
+<img src="images/dataset.png" alt="Fig. 1 Dataset example" width="300" height="200">
 
 2. Model and Training Setup
 
@@ -20,7 +20,7 @@ Using Hugging Face diffusers DreamBooth scripts, the training is LoRA-based fine
 By placing the object into different new contexts or styles, such as different environments, modified attributes, added accessories, and artistic styles, the fine-tuned model outputs some representative results.
     
   3.1 Different Environments
-    
+    <img src="images/o1.png" >
   3.2 Modified Attributes or Added Accessories
 
   3.3 Artistic Styles
