@@ -1,63 +1,108 @@
-# Dreambooth_LoRA_FT
-LoRA FT on diffusion V1.5
+# DreamBooth LoRA fine-tuning of Stable Diffusion v1.5
 
-## 1. Subject and Dataset
+[Portfolio](https://bill02chen.github.io/chenyanrui-site/) · [GitHub](https://github.com/Bill02Chen)
 
-The object is a game character. The dataset includes 3 images of the distinct object, covering three different clothing styles while preserving facial features and artistic styles.
-The unique identifier token associated with this subject is “a photo of hbr mari_satsuki”.
-<figure>
-  <img src="images/dataset.png" alt="Fig. 1 Dataset example">
-  <figcaption>Fig. 1 Dataset example</figcaption>
-</figure>
+Personalise Stable Diffusion v1.5 to a single game character from three images,
+and generate that character in new environments, attributes and artistic styles.
 
-## 2. Model and Training Setup
+**Key result:** the LoRA-tuned model reproduces the character in new contexts,
+with an LPIPS diversity score of **0.6747** over four samples for a fixed prompt.
+Face fidelity and accessory composition remain limited; the limitations are
+reported below.
 
-The model for training is Stable Diffusion v1.5.
-Using Hugging Face diffusers DreamBooth scripts, the training is LoRA-based fine-tuning. To further enhance fine-tuning performance in facial, the text encoder is trained. Other main training configurations are listed:
-- batch size: 2
-- learning rate: 5e-5
-- max train steps: 500
-  
-## 3. Representative Results
+## Problem
 
-By placing the object into different new contexts or styles, such as different environments, modified attributes, added accessories, and artistic styles, the fine-tuned model outputs some representative results.
-    
- ### 3.1 Different Environments
- <img src="images/o1.png" >
- 
-  ### 3.2 Modified Attributes or Added Accessories
-  <img src="images/o2.png" >
-  
-### 3.3 Artistic Styles
-  <img src="images/o3.png" > 
-  
-## 4. Observations and Analysis
-   
- ### 4.1 Fidelity
+Text-to-image models do not know a specific game character. Fine-tuning the full
+model on three images would overfit and destroy prior knowledge. DreamBooth with
+LoRA is a way to add a subject with a small adapter while keeping the base model
+intact.
 
-The overall subject fidelity is acceptable, however, the fine-tuned model does not perfectly reproduce the face.
-The prompt fidelity varies in different contexts. For most cases, the environment and style can be well generated. But in some cases, for instance, the accessory object can not be generated correctly to fit with the subject together.
+The questions were:
 
- ### 4.2 Fitting
+- can three images be enough to learn a usable subject?
+- how well does the subject transfer to new environments and styles?
+- where does it fail?
 
-Since the subject is a character, and the output results show some inconsistency in the human face, the fine-tuned model's performance is underfitting in human face generation.
+## Approach
 
- ### 4.3 Diversity
+### Dataset and token
 
-Using LPIPS to do evaluation with a certain prompt “a photo of hbr mari_satsuki wearing a tiny wizard hat, holding a wooden staff, magical forest background”, the average LPIPS among 4 generated images is 0.6747, which shows a good performance in diversity based on the given prompt.
+- Subject: a game character, three images covering different clothing styles.
+- Unique identifier: `a photo of hbr mari_satsuki`.
 
-<figure>
-  <img src="images/diversity.png" alt="Fig. 2 Diversity example">
-  <figcaption>Fig. 2 Diversity example</figcaption>
-</figure>
+![Dataset example](images/dataset.png)
 
+### Training
 
-  ### 4.4 Prior Preservation
+- Base model: Stable Diffusion v1.5.
+- Method: DreamBooth LoRA with the Hugging Face `diffusers` scripts.
+- The text encoder is also trained, to improve facial detail.
 
-The observation shows that the model can generate images with different environments using the class prompt only. However, the clothing of the character tends to be the same.
+| Hyperparameter | Value |
+| --- | --- |
+| Batch size | 2 |
+| Learning rate | 5e-5 |
+| Max train steps | 500 |
 
-<figure>
-  <img src="images/subject.png" alt="Fig. 3 Class prompt only example">
-  <figcaption>Fig. 3 Class prompt only example</figcaption>
-</figure>
+## Key results
 
+The tuned model places the subject into:
+
+- **new environments** — different scenes and backgrounds;
+- **modified attributes or accessories** — clothing and objects;
+- **artistic styles** — illustration and painterly treatments.
+
+| Result | Evidence |
+| --- | --- |
+| Different environments | `images/o1.png` |
+| Modified attributes / accessories | `images/o2.png` |
+| Artistic styles | `images/o3.png` |
+| Diversity: LPIPS 0.6747 (4 samples, fixed prompt) | `images/diversity.png` |
+| Class-prompt-only prior preservation | `images/subject.png` |
+
+What works and what does not:
+
+- **Fidelity:** overall subject fidelity is acceptable, but the face is not
+  reproduced perfectly.
+- **Prompt fidelity:** environments and styles follow the prompt well; some
+  accessory objects do not fit the subject correctly.
+- **Fitting:** the model underfits human faces. With three images, the face is the
+  hardest part.
+- **Diversity:** LPIPS 0.6747 across four generations for the prompt
+  `a photo of hbr mari_satsuki wearing a tiny wizard hat, holding a wooden staff,
+  magical forest background`; higher means more variation.
+- **Prior preservation:** class-prompt-only generations vary the environment but
+  tend to keep the same clothing.
+
+## Evidence
+
+- [Dreambooth_LoRA.ipynb](Dreambooth_LoRA.ipynb) — training and inference
+  notebook.
+- [images/dataset.png](images/dataset.png) — the three input images.
+- [images/o1.png](images/o1.png) — new environments.
+- [images/o2.png](images/o2.png) — modified attributes / accessories.
+- [images/o3.png](images/o3.png) — artistic styles.
+- [images/diversity.png](images/diversity.png) — LPIPS diversity samples.
+- [images/subject.png](images/subject.png) — class-prompt-only generations.
+
+The trained LoRA weights are not committed; the notebook reproduces the run.
+
+## Reproduce
+
+1. Open `Dreambooth_LoRA.ipynb` in a GPU environment.
+2. Prepare the three subject images and the instance prompt.
+3. Run the DreamBooth LoRA training cells (batch 2, LR 5e-5, 500 steps).
+4. Run the inference cells with the prompts in the results section.
+
+The notebook follows the Hugging Face `diffusers` DreamBooth example. Memory use
+depends on the script flags, resolution and batch size; the notebook records the
+settings used for this run.
+
+## Limitations
+
+- Three images are not enough for a stable face; the model underfits.
+- LPIPS over four samples is a small sample; treat it as a signal, not a
+  benchmark.
+- The results are qualitative; there is no FID or human preference study.
+- The subject is a game character; check the rights before any commercial use of
+  the generated images.
